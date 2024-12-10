@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} - Atos Oficiais{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+            <div class="">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <img class="rounded-circle" src="{%static 'assets/images/itai.png'%}" alt="ItAI Inteligência Artificial assistente virtual IA" width="80px" height="80px">
+                    </div>
+                    <div class="col">
+                        <div class="alert alert-light" role="alert">
+                            <p><strong>Olá, sou o ItAI! Envie seu arquivo para que eu possa analisá-lo e ajudar no registro dos atos oficiais</strong></p>
+                        </div>
+                       
+                    </div>
+                    <div class="col-lg-4 col-xl-4 col-xxl-4 col-md-12 mb-2">
+                        <form action="{% url 'ia_atos_oficiais' %}" method="post" class="d-flex align-items-center" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="me-2 w-100">
+                                <input class="form-control input_pdf" name="pdf_ia_analisa" id="pdf_ia_analisa" type="file">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn_form">+</button>
+                        </form>
+                    </div>
+                    <hr>
+
+                    {% if confirmacao %}
+
+                    <p>{{confirmacao}}</p>
+
+                    {% endif %}
+
+
+
+                </div>
+            </div>
+            
+            
+  
+    </div>
+</div>
+
+
+{% endblock %}

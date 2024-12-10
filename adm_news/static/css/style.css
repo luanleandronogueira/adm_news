@@ -6,12 +6,47 @@
 --color5:  #243a69 !important;
 }
 
+ /* Adicione um estilo específico para telas menores, como celulares */
+ @media (max-width: 767px) {
+    /* Seletor para a tabela que você deseja adicionar o scroll horizontal */
+    .sua-tabela {
+        /* Defina a largura máxima da tabela para ativar o scroll horizontal quando necessário */
+        max-width: 100%;
+        /* Adicione um scroll horizontal quando o conteúdo excede a largura da tabela */
+        overflow-x: auto;
+        display: block;
+        /* Adicione display: block para forçar a barra de rolagem horizontal */
+    }
+    /* Opcional: Remova as bordas da tabela para um visual mais limpo */
+    .sua-tabela,
+    .sua-tabela th,
+    .sua-tabela td {
+        border: none;
+    }
+}
+
 body {
     /* background-color: var(--color3); */
     margin: 0; /* Remove a margem padrão */
     height: 100vh; /* Altura da janela do navegador */
     background: linear-gradient(to bottom, var(--color1), var(--color3) );
+    font-family: "Nunito", serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
 }
+
+#container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Altura mínima: 100% da janela */
+}
+
+main {
+    flex: 1; /* O conteúdo ocupa o espaço restante */
+    padding: 20px;
+}
+
 nav {
     background-color: var(--color5);
     
@@ -40,11 +75,9 @@ nav a {
     text-decoration: none !important;
 }
 
-.off_link {
+.off_link a {
     padding: 10px;
-
 }
-
 
 .btn-outline-primary {
     --bs-btn-color: var(--color2);
@@ -61,4 +94,61 @@ nav a {
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--color2);
     --bs-gradient: none;
+}
+
+.text-bg-primary {
+    background: var(--color2) !important;
+}
+
+footer {
+    background: linear-gradient(to top, --color1 0%, #ffffff 100%);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+
+}
+
+.no-underline1 {
+    text-decoration: none;
+    font-size: 15px;
+    color: rgb(5, 5, 5);
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.ulTexto {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.font_tamanho {
+    font-size: 50px;
+}
+
+.font_tamanho1 {
+    font-size: 22px; 
+}
+
+.btn_tamanho {
+    margin: 4px;
+    border-radius: 50px;
+}
+
+.btn_cor {
+    background-color: var(--color5) !important;
+    border-color: var(--color5) !important;
+}
+
+.btn_form {
+    background-color: var(--color5) !important;
+    border-color: var(--color5) !important;
+    border-radius: 50px; 
+}
+
+.input_pdf {
+    border-radius: 50px;
+    border-color: var(--color2);
+    background-color: var(--color1);
 }
