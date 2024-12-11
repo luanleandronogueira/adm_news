@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.conf import settings
 import os
+import tempfile
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.document_loaders import PyPDFLoader
+
 
 # Chave da API
 api_key = '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'
@@ -20,26 +21,28 @@ def atos_oficiais(request):
     return render(request, 'temp/atos_oficiais.html')
 
 def ia_atos_oficiais(request):
-    confirmacao = ''
-    if request.method == 'POST':
-        ato_oficial = request.FILES.get('pdf_ia_analisa')
-        
-        temp_path = os.path.join(settings.MEDIA_ROOT, ato_oficial.name)
-        with open(temp_path, 'wb+') as temp_file:
-            for chunck in ato_oficial.chuncks():
-                temp_file.write(chunck)
-        
-        try:
-            ato_oficial = PyPDFLoader(temp_file)
-            ato_oficial_analisado = ato_oficial.load()
-            for ato in ato_oficial_analisado:
-                confirmacao = confirmacao + ato.page_content
-        except Exception as e:
-            confirmacao = f"Erro ao processar o PDF: {str(e)}"
-        finally: # Remover o arquivo temporário
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
-           
-    return render(request, 'temp/atos_oficiais.html', {'confirmacao': confirmacao})
+    caminho = 'https://it-solucoes.inf.br/admnews/CM_GARANHUNS/202412040954.pdf'
+    loader = PyPDFLoader(caminho)
+    lista_documentos = loader.load()
+    documentos = ''
+    for doc in lista_documentos:
+        documentos = documentos + doc.page_content
+
+    return render(request, 'temp/atos_oficiais.html', {'documentos': documentos})
+
+# def ia_atos_oficiais(request):
+#     pdf = ''
+#     if request.method == 'POST':
+#         confirmacao = ''
+#         ato_oficial = request.FILES.get('pdf_ia_analisa')
+#         if ato_oficial:
+#             for chunk in ato_oficial.chunks(): 
+#                 pdf = pdf + chunk
+                
+#             pdf_ia = PyPDFLoader(pdf)
+#             pdf_ia_analisado = pdf_ia.load()
+#             for ato in pdf_ia_analisado:
+#                 confirmacao = confirmacao + ato.page_content    
+#     return render(request, 'temp/atos_oficiais.html', {'confirmacao': confirmacao})
             
     
